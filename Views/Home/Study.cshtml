@@ -4,9 +4,11 @@
 
 <div class="text-center main-content" id="study">
     <h1 class="text-center display-1 title">Brain Bolt</h1>
-@*     <img src="~/img/logo.png" /> *@
     <form id="study-content" class="container" asp-action="GenerateFlashCards" method="post">
-        <h3 class="full-row">What would you like to study?</h3>
+        <div class="full-row icon-row">
+            <img src="~/img/logo.png" />
+            <h3>What would you like to study?</h3>
+        </div>
         <input class="full-row" name="studyTopic" placeholder="Insert Answer Here" />
         <h4 class="full-row">Choose the amount of Questions/Flash cards</h4>
         <input id="study-amount" type="number" name="questionAmount" onkeypress="fixLength(this, 2)" >

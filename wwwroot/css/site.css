@@ -202,8 +202,8 @@ input::placeholder {
 }
 
 #study img {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     align-self: auto;
     margin-right: 4px;
 }
@@ -225,4 +225,9 @@ input::placeholder {
 #gen-quiz {
     grid-column: 3;
     grid-row: 5;
+}
+
+.icon-row {
+    display: flex;
+    justify-content: center;
 }
