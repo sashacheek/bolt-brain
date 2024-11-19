@@ -21,26 +21,58 @@ header {
 }
 
 h1, h2, h3, h4 {
-    color: yellow;
+    color: #ebde13;
     -webkit-text-stroke-width: 3px;
     -webkit-text-stroke-color: black;
     margin: 0;
 }
 
-/* menu */
-
-#open-menu {
-    position: fixed;
-    margin: 30px 40px;
-    color: yellow;
-    background-color: transparent;
-    border: 0px;
+input, #study button {
+    background-color: black;
+    border-radius: 3px;
+    border: 2px solid #ebde13;
+    color: white;
+    text-align: center;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.main-content {
+    width: 75vw;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 625px) {
+    .main-content {
+        width: 90vw;
+    }
+}
+
+input::placeholder {
+    color: white;
+}
+
+    /* menu */
+    #open-menu {
+        position: fixed;
+        margin: 30px 40px;
+        color: #ebde13;
+        background-color: transparent;
+        border: 0px;
+    }
 
 #hamburger-icon div {
     width: 35px;
     height: 8px;
-    background-color: yellow;
+    background-color: #ebde13;
     margin: 6px 0;
     border: 2px solid black;
 }
@@ -54,7 +86,7 @@ h1, h2, h3, h4 {
     position: fixed;
     width: 250px;
     background-image: linear-gradient(to right, #412863, #1e1232);
-    color: yellow;
+    color: #ebde13;
     position: absolute;
     height: 100%;
     -webkit-text-stroke-width: 2px !important;
@@ -79,23 +111,23 @@ h1, h2, h3, h4 {
 #side-menu a {
     font-size: 2rem;
     text-decoration: none;
-    color: yellow;
+    color: #ebde13;
     -webkit-text-stroke-color: black;
     display: inline-block;
     width: 100%;
     border: 2px solid transparent;
 }
 
-#side-menu a:hover, #close-menu:hover {
-    background-color: black;
-    border-radius: 5px;
-    border: 2px solid yellow;
-}
+    #side-menu a:hover, #close-menu:hover {
+        background-color: black;
+        border-radius: 3px;
+        border: 2px solid #ebde13;
+    }
 
 #close-menu {
     -webkit-text-stroke-width: 1px !important;
     background-color: transparent;
-    color: yellow;
+    color: #ebde13;
     border: none;
     font-size: 1.1rem;
     padding: 10px;
@@ -122,6 +154,8 @@ h1, h2, h3, h4 {
 
 .title {
     font-size: calc(2.625rem + 4.5vw);
+    margin-top: 10vh;
+    margin-bottom: 4vh;
 }
 
 #brain-link {
@@ -129,6 +163,66 @@ h1, h2, h3, h4 {
     width: auto;
 }
 
-#brain-img {
+/*#brain-img {
     max-height: 275px;
+}*/
+
+/* study */
+
+#study {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#study h3 {
+    -webkit-text-stroke-width: 2px !important;
+    font-size: calc(1rem + 1.5vw);
+}
+
+#study input, #study button {
+    font-size: calc(0.75rem + 1.5vw);
+}
+
+#study h4 {
+    font-size: calc(0.85rem + 0.4vw);
+    -webkit-text-stroke-width: 1.5px !important;
+}
+
+    #study button:hover {
+        background: rgba(35, 22, 59, 1)
+    }
+
+#study-content {
+    margin: 10px auto;
+    display: grid;
+    column-gap: 5px;
+    row-gap: 2vh;
+    grid-template-columns: 40% 20% 40%;
+}
+
+#study img {
+    width: 30px;
+    height: 30px;
+    align-self: auto;
+    margin-right: 4px;
+}
+
+.full-row {
+    grid-column: 1 / 4;
+}
+
+#study-amount {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+#gen-flash {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+#gen-quiz {
+    grid-column: 3;
+    grid-row: 5;
 }
