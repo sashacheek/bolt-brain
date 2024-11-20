@@ -18,7 +18,7 @@ namespace BoltBrain.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Study()
         {
             return View();
         }

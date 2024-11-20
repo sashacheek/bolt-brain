@@ -1,11 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-1">Brain Bolt</h1>
-    <a asp-controller="Home" asp-action="Study" target="_blank">
-    <img class="img-fluid" src="img/logo.png"/>
-    </a>
-    <h2 class="display-4">Click Brain to Begin</h2>
+<div class="text-center" id="home">
+    <h1 class="text-center display-1 title pt-3">Brain Bolt</h1>
+    <div>
+        <a id="brain-link" asp-controller="Home" asp-action="Index">
+            <img class="img-fluid" id="brain-img" src="img/logo.png" />
+        </a>
+    </div>
+    <h2 class="click-brain display-4 pb-2">Click Brain to Begin</h2>
 </div>

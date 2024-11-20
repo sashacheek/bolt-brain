@@ -1,9 +1,13 @@
+/* global */
+
 * {
     margin: 0;
     padding: 0;
     font-family: 'Showcard Gothic', fantasy;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
+}
+
+body {
+    min-height: 100vh;
 }
 
 main {
@@ -11,6 +15,120 @@ main {
     min-height: 100vh;
 }
 
+header {
+    position: fixed;
+    min-height: 100vh;
+}
+
 h1, h2, h3, h4 {
     color: yellow;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: black;
+    margin: 0;
+}
+
+/* menu */
+
+#open-menu {
+    position: fixed;
+    margin: 30px 40px;
+    color: yellow;
+    background-color: transparent;
+    border: 0px;
+}
+
+#hamburger-icon div {
+    width: 35px;
+    height: 8px;
+    background-color: yellow;
+    margin: 6px 0;
+    border: 2px solid black;
+}
+
+#header {
+    display: block;
+    height: 100%;
+}
+
+#side-menu {
+    position: fixed;
+    width: 250px;
+    background-image: linear-gradient(to right, #412863, #1e1232);
+    color: yellow;
+    position: absolute;
+    height: 100%;
+    -webkit-text-stroke-width: 2px !important;
+    -webkit-text-stroke-color: black;
+    padding: 10px;
+    margin-left: -250px;
+    transition: transform 1s ease;
+}
+
+#menu-title {
+    margin-top: 10px;
+    font-size: 4rem;
+}
+
+#side-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#side-menu a {
+    font-size: 2rem;
+    text-decoration: none;
+    color: yellow;
+    -webkit-text-stroke-color: black;
+    display: inline-block;
+    width: 100%;
+    border: 2px solid transparent;
+}
+
+#side-menu a:hover, #close-menu:hover {
+    background-color: black;
+    border-radius: 5px;
+    border: 2px solid yellow;
+}
+
+#close-menu {
+    -webkit-text-stroke-width: 1px !important;
+    background-color: transparent;
+    color: yellow;
+    border: none;
+    font-size: 1.1rem;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+    border: 2px solid transparent;
+    line-height: 10px;
+}
+
+/* index */
+
+#home {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    object-fit: contain;
+}
+
+.click-brain {
+    padding-top: 20px;
+    margin-bottom: 0;
+/*    font-size: 4rem;*/
+}
+
+.title {
+    font-size: calc(2.625rem + 4.5vw);
+}
+
+#brain-link {
+    display: inline-block;
+    width: auto;
+}
+
+#brain-img {
+    max-height: 275px;
 }
