@@ -15,7 +15,7 @@ namespace BoltBrain.Services
 
         public GeminiApiClient(IConfiguration configuration)
         {
-            _apiKey = configuration["GeminiAPI:ApiKey"];
+            _apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
 
             if (string.IsNullOrEmpty(_apiKey))
             {
