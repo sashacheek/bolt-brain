@@ -1,11 +1,19 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Study";
 }
 
-<div class="text-center">
-    <h1 class="display-1">Study Page</h1>
-    <a asp-controller="Study" asp-action="Study" target="_blank">
-        <img class="img-fluid" src="img/logo.png" />
-    </a>
-    <h2 class="display-4">Click Brain to Begin</h2>
+<div class="text-center main-content" id="study">
+    <h1 class="text-center display-1 title">Brain Bolt</h1>
+    <form id="study-content" class="container" asp-action="GenerateFlashCards" method="post">
+        <div class="full-row icon-row">
+            <img src="~/img/logo.png" />
+            <h3>What would you like to study?</h3>
+        </div>
+        <input class="full-row" name="studyTopic" placeholder="Insert Answer Here" />
+        <h4 class="full-row">Choose the amount of Questions/Flash cards</h4>
+        <input id="study-amount" type="number" name="questionAmount" onkeypress="fixLength(this, 2)" >
+        <button id="gen-flash" type="submit">Generate Flash Cards</button>
+        <button id="gen-quiz" type="submit">Generate Quiz</button>
+        <h4 class="full-row">Feel fr``ee to be as specific as you please with your study topic. Brain Bolt will tailor the questions to best fit your studying needs.</h4>
+    </form>
 </div>
