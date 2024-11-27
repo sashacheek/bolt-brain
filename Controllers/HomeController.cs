@@ -25,13 +25,19 @@ namespace BoltBrain.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Flashcards()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult GenerateFlashCards(string studyTopic, int questionAmount)
         {
             Console.WriteLine("Printing data");
             Console.WriteLine(studyTopic);
             Console.WriteLine(questionAmount);
-            return RedirectToAction("Study");
+            return RedirectToAction("Flashcards");
             // backend pls take this data
         }
 
