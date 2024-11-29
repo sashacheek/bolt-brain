@@ -1,8 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center" id="home">
+    <h1 class="text-center display-1 title">Brain Bolt</h1>
+    <div>
+        <a id="brain-link" asp-controller="Home" asp-action="Study">
+            <img class="img-fluid" id="brain-img" src="img/logo.png" />
+        </a>
+    </div>
+    <h2 class="click-brain display-4 pb-2">Click Brain to Begin</h2>
 </div>

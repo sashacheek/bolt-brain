@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text;
 using System;
 using System.Net.Http;
@@ -50,8 +50,6 @@ namespace BoltBrain.Services
 
             var response = await _httpClient.PostAsync(requestUri, content);
             var responseContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("API Response:");
-            Console.WriteLine(responseContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -94,37 +92,34 @@ namespace BoltBrain.Services
         }
     }
 
-    public class GenerateContentResponse
-    {
-        public List<Candidate> candidates { get; set; }
-        public UsageMetadata usageMetadata { get; set; }
-        public string modelVersion { get; set; }
-    }
+ public class GenerateContentResponse
+ {
+     public List<Candidate> candidates { get; set; }
+     public UsageMetadata usageMetadata { get; set; }
+     public string modelVersion { get; set; }
+ }
 
-    public class Candidate
-    {
-        public Content content { get; set; }
-        public string finishReason { get; set; }
-        public double avgLogprobs { get; set; }
-    }
+ public class Candidate
+ {
+     public Content content { get; set; }
+     public string finishReason { get; set; }
+     public double avgLogprobs { get; set; }
+ }
 
+ public class Content
+ {
+     public List<Part> parts { get; set; }
+     public string role { get; set; }
+ }
+ public class Part
+ {
+     public string text { get; set; }
+ }
 
-    public class Content
-    {
-        public List<Part> parts { get; set; }
-        public string role { get; set; }
-    }
-    public class Part
-    {
-        public string text { get; set; }
-    }
-
-    public class UsageMetadata
-    {
-        public int promptTokenCount { get; set; }
-        public int candidatesTokenCount { get; set; }
-        public int totalTokenCount { get; set; }
-    }
-
-
+ public class UsageMetadata
+ {
+     public int promptTokenCount { get; set; }
+     public int candidatesTokenCount { get; set; }
+     public int totalTokenCount { get; set; }
+ }
 }

@@ -1,4 +1,3 @@
-﻿using BoltBrain.Areas.Identity;
 using BoltBrain.Data;
 using BoltBrain.Models;
 using BoltBrain.Services;
@@ -22,8 +21,8 @@ namespace BoltBrain.Controllers
             _context = context;
             _userManager = userManager;
         }
-
-
+        
+        // GET: AI/Ask
         public IActionResult Ask()
         {
             return View();
