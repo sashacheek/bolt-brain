@@ -1,6 +1,7 @@
 using BoltBrain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
 
 namespace BoltBrain.Controllers
@@ -32,27 +33,29 @@ namespace BoltBrain.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public IActionResult GenerateFlashCards(string studyTopic, int questionAmount)
+        [HttpGet]
+        public IActionResult Quiz()
         {
-            Console.WriteLine("Printing data");
-            Console.WriteLine(studyTopic);
-            Console.WriteLine(questionAmount);
-            return RedirectToAction("Flashcards");
-            // backend pls take this data
+            return View();
         }
 
         [HttpPost]
-        public IActionResult GenerateQuiz(string studyTopic, int questionAmount)
+        public IActionResult GenerateFlashCardsOrQuiz(string studyTopic, int questionAmount, string action)
         {
-            Console.WriteLine("Printing data");
-            Console.WriteLine(studyTopic);
-            Console.WriteLine(questionAmount);
-            return RedirectToAction("Study");
-            // backend pls take this data
-        }
+            if (action == "GenerateFlashCards")
+            {
+                // Call the method to generate flash cards
+                return RedirectToAction("FlashCards", new { topic = studyTopic, amount = questionAmount });
+            }
+            else if (action == "GenerateQuiz")
+            {
+                // Call the method to generate a quiz
+                return RedirectToAction("Quiz", new { topic = studyTopic, amount = questionAmount });
+            }
 
+                // Default action or fallback
+                return View();
+            }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
