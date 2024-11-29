@@ -4,7 +4,7 @@
 
 <div class="text-center main-content" id="study">
     <h1 class="text-center display-1 title">Brain Bolt</h1>
-    <form id="study-content" class="container" asp-action="GenerateFlashCards" method="post">
+    <form id="study-content" class="container" asp-action="GenerateFlashCardsOrQuiz" method="post">
         <div class="full-row icon-row">
             <img src="~/img/logo.png" />
             <h3>What would you like to study?</h3>
@@ -12,8 +12,8 @@
         <input class="full-row" name="studyTopic" placeholder="Insert Answer Here" />
         <h4 class="full-row">Choose the amount of Questions/Flash cards</h4>
         <input id="study-amount" type="number" name="questionAmount" onkeypress="fixLength(this, 2)" >
-        <button id="gen-flash" type="submit">Generate Flash Cards</button>
-        <button id="gen-quiz" type="submit">Generate Quiz</button>
+        <button id="gen-flash" name="action" value="GenerateFlashCards" type="submit">Generate Flash Cards</button>
+        <button id="gen-quiz" name="action" value="GenerateQuiz" type="submit">Generate Quiz</button>
         <h4 class="full-row">Feel free to be as specific as you please with your study topic. Brain Bolt will tailor the questions to best fit your studying needs.</h4>
     </form>
 </div>
