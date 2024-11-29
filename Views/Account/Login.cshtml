@@ -1,0 +1,35 @@
+﻿@model BoltBrain.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="text-center main-content" id="study">
+        <div class="container">
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" class="full-row" /><br />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="container">
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" class="full-row" /><br />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <input type="hidden" asp-for="ReturnUrl" /><br/>
+
+        <button type="submit" class="gen-quiz">Login</button>
+        <a asp-action="Register" class="btn btn-link">Register</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
