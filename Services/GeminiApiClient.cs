@@ -50,15 +50,45 @@ namespace BoltBrain.Services
 
             var response = await _httpClient.PostAsync(requestUri, content);
             var responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("API Response:");
+            Console.WriteLine(responseContent);
 
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<GenerateContentResponse>(responseContent);
-                return result?.contents?[0]?.parts?[0]?.text ?? "No response";
+                try
+                {
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    var result = JsonSerializer.Deserialize<GenerateContentResponse>(responseContent, options);
+
+                    if (result != null && result.candidates != null && result.candidates.Count > 0)
+                    {
+                        var firstCandidate = result.candidates[0];
+                        var firstPart = firstCandidate.content?.parts?[0];
+                        var aiResponse = firstPart?.text ?? "No response";
+
+                        return aiResponse;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Deserialization returned null or no candidates found.");
+                        return "No response";
+                    }
+                }
+                catch (JsonException ex)
+                {
+                    Console.WriteLine("Deserialization error:");
+                    Console.WriteLine(ex.Message);
+                    return "An error occurred while processing the response.";
+                }
             }
             else
             {
-                throw new Exception($"Error: {response.StatusCode}, Details: {responseContent}");
+                Console.WriteLine("API call failed with status code: " + response.StatusCode);
+                return "Failed to get a response from the AI.";
             }
 
         }
@@ -66,16 +96,35 @@ namespace BoltBrain.Services
 
     public class GenerateContentResponse
     {
-        public Content[] contents { get; set; }
+        public List<Candidate> candidates { get; set; }
+        public UsageMetadata usageMetadata { get; set; }
+        public string modelVersion { get; set; }
     }
+
+    public class Candidate
+    {
+        public Content content { get; set; }
+        public string finishReason { get; set; }
+        public double avgLogprobs { get; set; }
+    }
+
 
     public class Content
     {
-        public Part[] parts { get; set; }
+        public List<Part> parts { get; set; }
+        public string role { get; set; }
     }
-
     public class Part
     {
         public string text { get; set; }
     }
+
+    public class UsageMetadata
+    {
+        public int promptTokenCount { get; set; }
+        public int candidatesTokenCount { get; set; }
+        public int totalTokenCount { get; set; }
+    }
+
+
 }
