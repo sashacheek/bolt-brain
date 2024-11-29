@@ -1,3 +1,4 @@
+using BoltBrain.Areas.Identity;
 using BoltBrain.Data;
 using BoltBrain.Models;
 using BoltBrain.Services;

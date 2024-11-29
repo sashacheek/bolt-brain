@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>Profile</h2>
+
+<h3>Delete Account</h3>
+<p>Warning: This action cannot be undone. All your data will be permanently deleted.</p>
+
+<form asp-action="DeleteAccount" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Delete My Account</button>
+</form>
