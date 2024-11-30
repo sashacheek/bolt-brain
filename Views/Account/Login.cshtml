@@ -4,13 +4,13 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="text-center main-content login-view" id="study">
+<div class="text-center login-view" id="study">
     <h1 class="text-center display-1 title">Brain Bolt</h1>
     <h2 class="display-4">Log In</h2>
     <form asp-action="Login" method="post" class="container" id="study-content">
         
         @Html.AntiForgeryToken()
-        @* <div asp-validation-summary="All" class="text-danger full-row"></div> *@
+            <div asp-validation-summary="All" class="text-danger full-row"></div>
                 <label asp-for="Email" class="full-row"></label>
                 <input asp-for="Email" class="full-row" />
                 <span asp-validation-for="Email" class="text-danger full-row"></span>

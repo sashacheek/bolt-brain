@@ -4,7 +4,8 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+@*  <div class="text-center main-content outer-box">
+    <h1 class="text-center display-1 title">Brain Bolt</h1>
 
 <form asp-action="Register" method="post">
     <div asp-validation-summary="ModelOnly"></div>
@@ -30,6 +31,33 @@
     <button type="submit" class="btn btn-primary">Register</button>
     <a asp-action="Login" class="btn btn-link">Already have an account? Login</a>
 </form>
+
+</div> *@
+
+<div class="text-center login-view register-view" id="study">
+    <h1 class="text-center display-1 title">Brain Bolt</h1>
+    <h2 class="display-4">Register</h2>
+    <form asp-action="Register" method="post" class="container" id="study-content">
+        <div asp-validation-summary="ModelOnly" class="full-row text-danger"></div>
+
+        <label asp-for="Email" class="full-row"></label>
+        <input asp-for="Email" class="full-row" />
+        <span asp-validation-for="Email" class="text-danger full-row"></span>
+        <label asp-for="Password" class="full-row"></label>
+        <input asp-for="Password" class="full-row" />
+        <span asp-validation-for="Password" class="text-danger full-row"></span>
+        <label asp-for="ConfirmPassword" class="full-row"></label>
+        <input asp-for="ConfirmPassword" class="full-row" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger full-row"></span>
+
+
+@*         <button type="submit" class="gen-quiz d-block">Login</button>
+        <a asp-action="Register" class="">Register</a> *@
+
+        <button type="submit" class="">Register</button>
+        <a asp-action="Login" class="">Login</a>
+    </form>
+</div>
 
 @section Scripts {
     @{

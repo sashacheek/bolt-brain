@@ -139,7 +139,7 @@ input::placeholder {
 
 /* index */
 
-#home {
+#home, .outer-box {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -419,7 +419,7 @@ input::placeholder {
     .login-view #study-content ul {
         margin: 0;
         padding-left: 0;
-
+        list-style-type: none;
     }
 
     .login-view #study-content button {
@@ -433,3 +433,15 @@ input::placeholder {
     grid-row: 9;
     grid-column: 2;
 }
+
+    .register-view #study-content button {
+        text-decoration: none;
+        grid-row: 11;
+        grid-column: 2;
+    }
+
+    .register-view #study-content a {
+        text-decoration: none;
+        grid-row: 12;
+        grid-column: 2;
+    }
