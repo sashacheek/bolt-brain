@@ -1,5 +1,6 @@
 ﻿using BoltBrain.Areas.Identity;
 using BoltBrain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,16 +19,17 @@ namespace BoltBrain.Controllers
             _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
-        {
-            var model = new LoginViewModel { ReturnUrl = returnUrl };
-            return View(model);
+        {           
+            return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login([Bind("Email,Password")] LoginViewModel model, string returnUrl = null)
         {
             if (!ModelState.IsValid)
             {
@@ -39,15 +41,8 @@ namespace BoltBrain.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
                 if (result.Succeeded)
-                {
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Study", "Home");
-                    }
+                {                    
+                    return RedirectToAction("Study", "Home");                    
                 }
             }
 
