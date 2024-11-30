@@ -342,6 +342,21 @@ input::placeholder {
         background-color: #45a049;
     }
 
+/* Results Page*/
+.printwhite {
+    font-size: 3em;
+    color: #fff;
+}
+
+.q-nav-button {
+    margin-left: 80%;
+}
+
+#bottomfooter {
+    margin-bottom: 20%;
+}
+
+
 /* Navigation Styling */
 .navigation {
     display: flex;
