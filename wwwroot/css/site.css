@@ -27,7 +27,7 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 
-input, #study button {
+input, #study button, .login-view #study-content a {
     background-color: black;
     border-radius: 3px;
     border: 2px solid #ebde13;
@@ -180,16 +180,16 @@ input::placeholder {
     font-size: calc(1rem + 1.5vw);
 }
 
-#study input, #study button {
-    font-size: calc(0.75rem + 1.5vw);
-}
+    #study input, #study button, .login-view #study-content a {
+        font-size: calc(0.75rem + 1.5vw);
+    }
 
 #study h4 {
     font-size: calc(0.85rem + 0.4vw);
     -webkit-text-stroke-width: 1.5px !important;
 }
 
-    #study button:hover {
+    #study button:hover, .login-view #study-content a:hover {
         background: rgba(35, 22, 59, 1)
     }
 
@@ -401,4 +401,35 @@ input::placeholder {
 
 .result-mode-btn {
     margin-top: 30px;
+}
+
+.login-view label {
+    color: #ebde13;
+    -webkit-text-stroke-width: 1px !important;
+    -webkit-text-stroke-color: black;
+    font-size: 20px;
+}
+
+.login-view #study-content {
+    margin-top: 10px !important;
+    row-gap: 7px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+    .login-view #study-content ul {
+        margin: 0;
+        padding-left: 0;
+
+    }
+
+    .login-view #study-content button {
+        text-decoration: none;
+        grid-row: 8;
+        grid-column: 2;
+    }
+
+.login-view #study-content a {
+    text-decoration: none;
+    grid-row: 9;
+    grid-column: 2;
 }
