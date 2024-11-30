@@ -31,22 +31,35 @@ namespace BoltBrain.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Ask(string question)
+        public async Task<IActionResult> Ask(string studyTopic, int questionAmount, string action)
         {
-            if (string.IsNullOrWhiteSpace(question))
+            if (string.IsNullOrWhiteSpace(studyTopic) || questionAmount <= 0)
             {
-                ModelState.AddModelError("", "Your question cannot be empty.");
-                return View();
+                ModelState.AddModelError("", "Please provide a valid study topic and number of questions.");
+                return RedirectToAction("Study", "Home");
             }
 
             try
             {
-                var response = await _geminiClient.GenerateContentAsync(question);
+                string prompt = action switch
+                {
+                    "GenerateFlashCards" => $"Please generate {questionAmount} flashcards on the topic: {studyTopic}. Each flashcard should have a question and an answer.",
+                    "GenerateQuiz" => $"Please create a quiz with {questionAmount} multiple-choice questions on the topic: {studyTopic}. Each question should have one correct answer and three incorrect options.",
+                    _ => null
+                };
+
+                if (string.IsNullOrEmpty(prompt))
+                {
+                    ModelState.AddModelError("", "Invalid action selected.");
+                    return RedirectToAction("Study", "Home");
+                }
+
+                var response = await _geminiClient.GenerateContentAsync(prompt);
 
                 var interaction = new UserInteraction
                 {
                     UserId = _userManager.GetUserId(User),
-                    Question = question,
+                    Question = prompt,
                     Response = response,
                     Timestamp = DateTime.UtcNow
                 };
@@ -54,14 +67,65 @@ namespace BoltBrain.Controllers
                 _context.UserInteractions.Add(interaction);
                 await _context.SaveChangesAsync();
 
-                ViewBag.Response = response;
+                TempData["Response"] = response;
+                TempData["StudyTopic"] = studyTopic;
+                TempData["QuestionAmount"] = questionAmount;
+
+                if (action == "GenerateFlashCards")
+                {
+                    return RedirectToAction("Flashcards", "AI");
+                }
+                else if (action == "GenerateQuiz")
+                {
+                    return RedirectToAction("Quiz", "AI");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid action.");
+                    return RedirectToAction("Study", "Home");
+                }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+                return RedirectToAction("Study", "Home");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Flashcards()
+        {
+            var response = TempData["Response"] as string;
+            var studyTopic = TempData["StudyTopic"] as string;
+            var questionAmount = TempData["QuestionAmount"];
+
+            if (string.IsNullOrEmpty(response))
+            {
+                return RedirectToAction("Study", "Home");
             }
 
-            return View();
+            ViewBag.StudyTopic = studyTopic;
+            ViewBag.QuestionAmount = questionAmount;
+
+            return View(model: response);
+        }
+
+        [HttpGet]
+        public IActionResult Quiz()
+        {
+            var response = TempData["Response"] as string;
+            var studyTopic = TempData["StudyTopic"] as string;
+            var questionAmount = TempData["QuestionAmount"];
+
+            if (string.IsNullOrEmpty(response))
+            {
+                return RedirectToAction("Study", "Home");
+            }
+
+            ViewBag.StudyTopic = studyTopic;
+            ViewBag.QuestionAmount = questionAmount;
+
+            return View(model: response);
         }
     }
 }

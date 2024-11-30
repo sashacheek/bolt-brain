@@ -1,0 +1,106 @@
+﻿@model IEnumerable<BoltBrain.Models.UserInteraction>
+
+@{
+    ViewData["Title"] = "History";
+}
+
+<h2>History</h2>
+
+<!-- Search Form -->
+<form method="get" asp-action="Index" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search by Topic" value="@ViewBag.SearchTerm" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (!Model.Any())
+{
+    <p>You have no previous interactions.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Study Topic</th>
+                <th>Action</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var interaction in Model)
+            {
+                <tr>
+                    <td>@interaction.Timestamp.ToLocalTime()</td>
+                    <td>@interaction.Question</td>
+                    <td>
+                        @if (interaction.Question.Contains("flashcards", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span>Flashcards</span>
+                        }
+                        else if (interaction.Question.Contains("quiz", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span>Quiz</span>
+                        }
+                        else
+                        {
+                            <span>Other</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@interaction.Id">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-searchTerm="@ViewBag.SearchTerm">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                if (i == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <span class="page-link">@i <span class="sr-only">(current)</span></span>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchTerm="@ViewBag.SearchTerm">@i</a>
+                    </li>
+                }
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-searchTerm="@ViewBag.SearchTerm">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+            }
+        </ul>
+    </nav>
+}

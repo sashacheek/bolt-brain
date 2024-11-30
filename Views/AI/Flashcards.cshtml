@@ -1,0 +1,29 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Flashcards";
+}
+
+<div class="text-center main-content" id="study">
+    <h1 class="text-center display-1 title">Brain Bolt</h1>
+    <div class="full-row icon-row">
+        <img src="~/img/logo.png" alt="Brain Bolt Logo" />
+        <h3>Flashcards Have Been Generated</h3>
+    </div>
+    <h3>@ViewBag.QuestionAmount Flashcards Ready on @ViewBag.StudyTopic.</h3>
+    <div id="flashcards" class="flashcards">
+        @{
+            var flashcards = Model.Split(new[] { "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
+            int index = 1;
+        }
+        @foreach (var flashcard in flashcards)
+        {
+            <div class="boarder">
+                <h5>Question @index of @ViewBag.QuestionAmount</h5>
+                <p>@flashcard</p>
+            </div>
+            index++;
+        }
+    </div>
+</div>
+

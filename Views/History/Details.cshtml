@@ -1,0 +1,34 @@
+﻿@model BoltBrain.Models.UserInteraction
+
+@{
+    ViewData["Title"] = "Interaction Details";
+}
+
+<h2>Interaction Details</h2>
+
+<div class="card">
+    <div class="card-header">
+        @Model.Timestamp.ToLocalTime().ToString("f")
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">
+            @if (Model.Question.Contains("flashcards", StringComparison.OrdinalIgnoreCase))
+            {
+                <span>Flashcards</span>
+            }
+            else if (Model.Question.Contains("quiz", StringComparison.OrdinalIgnoreCase))
+            {
+                <span>Quiz</span>
+            }
+            else
+            {
+                <span>Other</span>
+            }
+        </h5>
+        <p class="card-text"><strong>Study Topic:</strong> @Model.Question</p>
+        <p class="card-text"><strong>Response:</strong></p>
+        <pre>@Model.Response</pre>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to History</a>
