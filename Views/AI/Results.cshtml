@@ -1,0 +1,29 @@
+@model int[]
+@{
+    ViewData["Title"] = "Results";
+}
+
+<div class="text-center main-content link-buttons" id="study">
+    <h1 class="text-center display-1 title">Brain Bolt</h1>
+    <div class="full-row icon-row">
+        <!--The line below is not working for me, pls fix-->
+        <img src="~/img/logo.png" alt="Brain Bolt Logo" />
+        <h3>Quiz Has Been Submitted!</h3>
+    </div>
+    <div class="quiz-container">
+        <div class="question-container result-text">
+            <h4>Results</h4>
+            <h4>Congrats!</h4>
+            <!---Insert Variable that stores the number of questions for a quiz, and how many questions were answered correctly in h4 below--->
+            <h4 mb-2">Final Score: @Model[0]/@Model[1]</h4>
+            <h4>Would you Like to Try Again?</h4>
+            <!--You will have to get a "restart arrow" from the web and insert it here-->
+@*             <button class="q-nav-button"><img class="midsize" src="img/arrow.png" alt="Restart?"></button> *@
+        </div>
+    </div>
+    <a class="result-mode-btn">Review Missed Questions</a>
+    <a class="result-mode-btn" asp-controller="Home" asp-action="Study">Generate New Quiz</a>
+    <a class="result-mode-btn" asp-controller="Home" asp-action="Study">Generate Flash Cards</a>
+
+    <div id="bottomfooter"></div>
+</div>

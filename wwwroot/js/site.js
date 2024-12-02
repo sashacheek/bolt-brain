@@ -20,3 +20,13 @@ document.addEventListener('click', (event) => {
 function fixLength(input, max) {
     if (input.value.length >= max) input.value = input.value.slice(0, input.max + 1);
 }
+
+function flipCard(front, back) {
+    var text = document.getElementById("flashcard-text");
+
+    if (text.innerText == front) {
+        text.innerText = back;
+    } else {
+        text.innerText = front;
+    }
+}

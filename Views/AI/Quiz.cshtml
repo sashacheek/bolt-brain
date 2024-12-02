@@ -1,28 +1,50 @@
-﻿@model string
+﻿@model string[]
 
 @{
     ViewData["Title"] = "Quiz";
 }
 
-<div class="text-center main-content" id="study">
+<div class="text-center px-3 link-buttons" id="study">
     <h1 class="text-center display-1 title">Brain Bolt</h1>
     <div class="full-row icon-row">
         <img src="~/img/logo.png" alt="Brain Bolt Logo" />
         <h3>Quiz Has Been Generated</h3>
     </div>
-    <h3>@ViewBag.QuestionAmount Questions Ready on @ViewBag.StudyTopic.</h3>
-    <div class="quiz-container">
-        @{
-            var questions = Model.Split(new[] { "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
-            int index = 1;
-        }
-        @foreach (var questionBlock in questions)
+    <h3 class="mb-2">@ViewBag.QuestionAmount Questions Ready on @ViewBag.StudyTopic.</h3>
+    <form id="flashcards-grid" asp-controller="AI" asp-action="QuizNewQuestion">
+            @if ((ViewBag.Index ?? 0) != 1)
         {
-            <div class="question-container">
-                <h4 class="question">Question @index of @ViewBag.QuestionAmount</h4>
-                <p>@questionBlock</p>
-            </div>
-            index++;
+            <button class="previous" name="action" value="PreviousQuestion" type="submit">Previous Question</button>
         }
+    <div class="quiz-container">
+            <div class="question-container" id="questions">
+                <h4 class="question q-title">Question @ViewBag.Index of @ViewBag.QuestionAmount</h4>
+                <h4 class="q-title">@Model[0]</h4>
+                <div class="q-grid">
+                <div class="q-option">
+                        <label for="option-one">A) @Model[1]</label>
+                        <input type="radio" name="answer" id="option-one" value="@Model[1]" @(ViewBag.Answer != null && ViewBag.Answer == Model[1] ? "checked='checked''" : "")>
+                </div>
+                <div class="q-option">
+                        <label for="option-two">B) @Model[2]</label>
+                        <input type="radio" name="answer" id="option-two" value="@Model[2]" @(ViewBag.Answer != null && ViewBag.Answer == Model[2] ? "checked='checked''" : "")>
+                        </div>
+                    <div class="q-option">
+                        <label for="option-three">C) @Model[3]</label>
+                        <input type="radio" name="answer" id="option-three" value="@Model[3]" @(ViewBag.Answer != null && ViewBag.Answer == Model[3] ? "checked='checked''" : "")>
+                </div>
+                <div class="q-option">
+                        <label for="option-four">D) @Model[4]</label>
+                        <input type="radio" name="answer" id="option-four" value="@Model[4 ]" @(ViewBag.Answer != null && ViewBag.Answer == Model[4] ? "checked='checked''" : "")>
+                </div>
+                </div>
+            </div>
     </div>
+        @if ((ViewBag.Index ?? 0) != (ViewBag.QuestionAmount ?? 0))
+        {
+            <button class="next" name="action" value="NextQuestion" type="submit">Next Question</button>
+        }
+        <button name="action" value="ReviewQuiz" id="finish">Finish</button>
+    </form>
+
 </div>
