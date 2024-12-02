@@ -511,6 +511,7 @@ input::placeholder {
         display: grid;
         align-items: center;
         padding: 5px;
+        cursor: pointer;
     }
 
         .q-option input {
