@@ -118,13 +118,13 @@ input::placeholder {
     border: 2px solid transparent;
 }
 
-    #side-menu a:hover, #close-menu:hover {
+    #side-menu a:hover, .close-menu:hover {
         background-color: black;
         border-radius: 3px;
         border: 2px solid #ebde13;
     }
 
-#close-menu {
+.close-menu {
     -webkit-text-stroke-width: 1px !important;
     background-color: transparent;
     color: #ebde13;

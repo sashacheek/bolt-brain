@@ -30,7 +30,7 @@
                     <li>
                         <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-link nav-link" style="display:inline; padding:0; border:none; background:none;">Logout</button>
+                            <button type="submit" class="close-menu" style="display:inline; padding:0; border:none; background:none;">Logout</button>
                         </form>
                     </li>
                 }
@@ -39,7 +39,7 @@
                     <li><a asp-controller="Account" asp-action="Login">Login</a></li>
                     <li><a asp-controller="Account" asp-action="Register">Register</a></li>
                 }              
-                <li><button id="close-menu" onclick="closeMenu()"> Close Menu</button></li>
+                <li><button class="close-menu" onclick="closeMenu()"> Close Menu</button></li>
             </ul>
         </nav>      
     </header>
