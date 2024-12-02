@@ -11,6 +11,7 @@
         <h3>Quiz Has Been Generated</h3>
     </div>
     <h3 class="mb-2">@ViewBag.QuestionAmount Questions Ready on @ViewBag.StudyTopic.</h3>
+    <h3 class="mb-2">Review:  @(ViewBag.Review == 1 ? "True" : "False") </h3>
     <form id="flashcards-grid" asp-controller="AI" asp-action="QuizNewQuestion">
             @if ((ViewBag.Index ?? 0) != 1)
         {
@@ -23,19 +24,31 @@
                 <div class="q-grid">
                 <div class="q-option">
                         <label for="option-one">A) @Model[1]</label>
-                        <input type="radio" name="answer" id="option-one" value="@Model[1]" @(ViewBag.Answer != null && ViewBag.Answer == Model[1] ? "checked='checked''" : "")>
+                            <input class="@(ViewBag.Review == 1 && ViewBag.CorrectAnswer == @Model[1] ? "review-correct" : "")
+@(ViewBag.Review == 1 && ViewBag.Answer != ViewBag.CorrectAnswer && ViewBag.Answer == @Model[1] ? "review-incorrect" : "")"
+                            type="radio" name="answer" id="option-one"
+                            value="@Model[1]" @(ViewBag.Answer != null && ViewBag.Review != 1 && ViewBag.Answer == @Model[1] ? "checked='checked''" : "")>
                 </div>
                 <div class="q-option">
                         <label for="option-two">B) @Model[2]</label>
-                        <input type="radio" name="answer" id="option-two" value="@Model[2]" @(ViewBag.Answer != null && ViewBag.Answer == Model[2] ? "checked='checked''" : "")>
+                            <input class="@(ViewBag.Review == 1 && ViewBag.CorrectAnswer == @Model[2] ? "review-correct" : "")
+@(ViewBag.Review == 1 && ViewBag.Answer != ViewBag.CorrectAnswer && ViewBag.Answer == @Model[2] ? "review-incorrect" : "")"
+                                   type="radio" name="answer" id="option-two"
+                                   value="@Model[2]" @(ViewBag.Answer != null && ViewBag.Review != 1 && ViewBag.Answer == @Model[2] ? "checked='checked''" : "")>
                         </div>
                     <div class="q-option">
                         <label for="option-three">C) @Model[3]</label>
-                        <input type="radio" name="answer" id="option-three" value="@Model[3]" @(ViewBag.Answer != null && ViewBag.Answer == Model[3] ? "checked='checked''" : "")>
+                            <input class="@(ViewBag.Review == 1 && ViewBag.CorrectAnswer == @Model[3] ? "review-correct" : "")
+@(ViewBag.Review == 1 && ViewBag.Answer != ViewBag.CorrectAnswer && ViewBag.Answer == @Model[3] ? "review-incorrect" : "")"
+                                   type="radio" name="answer" id="option-three"
+                                   value="@Model[3]" @(ViewBag.Answer != null && ViewBag.Review != 1 && ViewBag.Answer == @Model[3] ? "checked='checked''" : "")>
                 </div>
                 <div class="q-option">
                         <label for="option-four">D) @Model[4]</label>
-                        <input type="radio" name="answer" id="option-four" value="@Model[4 ]" @(ViewBag.Answer != null && ViewBag.Answer == Model[4] ? "checked='checked''" : "")>
+                            <input class="@(ViewBag.Review == 1 && ViewBag.CorrectAnswer == @Model[4] ? "review-correct" : "")
+@(ViewBag.Review == 1 && ViewBag.Answer != ViewBag.CorrectAnswer && ViewBag.Answer == @Model[4] ? "review-incorrect" : "")"
+                                   type="radio" name="answer" id="option-four"
+                                   value="@Model[4]" @(ViewBag.Answer != null && ViewBag.Review != 1 && ViewBag.Answer == @Model[4] ? "checked='checked''" : "")>
                 </div>
                 </div>
             </div>

@@ -541,6 +541,10 @@ input::placeholder {
     padding: 5px;
 }
 
+#flashcard-text {
+    font-size: 24px;
+}
+
 @media screen and (max-width: 560px) {
     #flashcards-grid .previous {
         grid-column: 2 / 5;
@@ -579,4 +583,12 @@ input::placeholder {
 }
 .link-buttons a:hover {
     color: white;
+}
+
+.q-option:has(> .review-correct) {
+    border-color: white !important;
+}
+
+.q-option:has(> .review-incorrect) {
+    border-color: #d71f25 !important;
 }

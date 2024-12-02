@@ -116,8 +116,7 @@ namespace BoltBrain.Controllers
 
                     HttpContext.Session.SetString("shuffledQuestions", JsonSerializer.Serialize(shuffledQuestions));
 
-                    string[] question = { shuffledQuestions[currentIndex], shuffledQuestions[currentIndex + 1], shuffledQuestions[currentIndex + 2], shuffledQuestions[currentIndex + 3], shuffledQuestions[currentIndex + 4] }; ;
-                    TempData["Question"] = question;
+                    HttpContext.Session.SetInt32("Review", 0);
 
                     return RedirectToAction("Quiz", "AI");
                 }
@@ -197,20 +196,25 @@ namespace BoltBrain.Controllers
         [HttpGet]
         public IActionResult Quiz()
         {
+            Console.WriteLine("Quizzing");
+
             int currentIndex = HttpContext.Session.GetInt32("currentIndex") ?? 0;
             int realIndex = (currentIndex / 5) + 1;
 
-            var question = TempData["Question"] as string[];
+            var shuffledQuestions = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("shuffledQuestions"));
+            string[] question = { shuffledQuestions[currentIndex], shuffledQuestions[currentIndex + 1], shuffledQuestions[currentIndex + 2], shuffledQuestions[currentIndex + 3], shuffledQuestions[currentIndex + 4] };
 
             var studyTopic = HttpContext.Session.GetString("StudyTopic");
             var questionAmount = HttpContext.Session.GetInt32("QuestionAmount") ?? 0; ;
-
+            var storedQuestions = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("questions"));
             var answers = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("answers"));
             ViewBag.Answer = answers[realIndex - 1];
 
             ViewBag.StudyTopic = studyTopic;
             ViewBag.QuestionAmount = questionAmount;
             ViewBag.Index = realIndex;
+            ViewBag.Review = HttpContext.Session.GetInt32("Review");
+            ViewBag.CorrectAnswer = storedQuestions[currentIndex + 1];
 
             return View(model: question);
         }
@@ -233,20 +237,12 @@ namespace BoltBrain.Controllers
                 currentIndex -= 5;
                 HttpContext.Session.SetInt32("currentIndex", currentIndex);
 
-                var shuffledQuestions = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("shuffledQuestions"));
-                string[] question = { shuffledQuestions[currentIndex], shuffledQuestions[currentIndex + 1], shuffledQuestions[currentIndex + 2], shuffledQuestions[currentIndex + 3], shuffledQuestions[currentIndex + 4] }; ;
-                TempData["Question"] = question;
-
                 return RedirectToAction("Quiz", "AI");
             }
             else if (action == "NextQuestion")
             {
                 currentIndex += 5;
                 HttpContext.Session.SetInt32("currentIndex", currentIndex);
-
-                var shuffledQuestions = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("shuffledQuestions"));
-                string[] question = { shuffledQuestions[currentIndex], shuffledQuestions[currentIndex + 1], shuffledQuestions[currentIndex + 2], shuffledQuestions[currentIndex + 3], shuffledQuestions[currentIndex + 4] }; ;
-                TempData["Question"] = question;
 
                 return RedirectToAction("Quiz", "AI");
             }
@@ -270,10 +266,15 @@ namespace BoltBrain.Controllers
 
             string[] answers = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("answers"));
             var storedQuestions = JsonSerializer.Deserialize<string[]>(HttpContext.Session.GetString("questions"));
+            Console.WriteLine(string.Join(", ", storedQuestions));
+
 
             int numCorrect = 0;
             for (int i = 0; i < results[1]; i++)
             {
+                Console.WriteLine("Question:");
+                Console.WriteLine(storedQuestions[(i * 5) + 1]);
+                Console.WriteLine(answers[i]);
                 if (storedQuestions[(i * 5) + 1] == answers[i])
                 {
                     numCorrect++;
@@ -283,6 +284,14 @@ namespace BoltBrain.Controllers
             results[0] = numCorrect;
 
             return View(model: results);
+        }
+
+        [HttpGet]
+        public IActionResult ReviewQuiz()
+        {
+            HttpContext.Session.SetInt32("Review", 1);
+            HttpContext.Session.SetInt32("currentIndex", 0);
+            return RedirectToAction("Quiz", "AI");
         }
 
 
